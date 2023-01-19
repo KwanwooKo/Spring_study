@@ -17,9 +17,12 @@ public class MemberController {
     // @Controller, @Service, @Repository 가 등록된 이유는 해당 annotation 이 @Component 를 가지고 있기 때문
     // 이 컴포넌트 스캔은 같은 패키지 내부에 대해서만 적용됨 => 그래서 HelloSpringApplication 이 들어있는 패키지에 대해서만 적용
     // 스프링 빈 은 싱글톤으로 등록된다 => 유일하게 하나만 등록 => 그럼 모든 곳에서 같은 인스턴스를 사용
+    // @Autowired 를 이용한 의존성 주입이 많은데 생성자 주입이 좋음 => 제일 처음에만 필요하기 때문에 + 의존관계가 runtime 중에 변경될 일이 없기 떄문
+    // 그래서 그냥 생성자 주입 씁시다
     @Autowired
     public MemberController(MemberService memberService) {
         this.memberService = memberService;
     }
+
 
 }
