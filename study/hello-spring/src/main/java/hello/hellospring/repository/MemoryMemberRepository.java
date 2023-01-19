@@ -1,9 +1,11 @@
 package hello.hellospring.repository;
 
 import hello.hellospring.domain.Member;
+import org.springframework.stereotype.Repository;
 
 import java.util.*;
 
+@Repository
 public class MemoryMemberRepository implements MemberRepository{
 
     // 1. 우선 save 를 해야하니까 저장소가 필요하겠네? => 그래서 일단 저장소부터 만들어
