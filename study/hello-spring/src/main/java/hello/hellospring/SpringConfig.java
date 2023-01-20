@@ -1,6 +1,7 @@
 package hello.hellospring;
 
 import hello.hellospring.repository.JdbcMemberRepository;
+import hello.hellospring.repository.JdbcTemplateMemberRepository;
 import hello.hellospring.repository.MemberRepository;
 import hello.hellospring.repository.MemoryMemberRepository;
 import hello.hellospring.service.MemberService;
@@ -37,9 +38,10 @@ public class SpringConfig {
     // 여기서 MemberRepository 의 구현체를 변경해주면 됨
     @Bean
     public MemberRepository memberRepository() {
-//        return new MemoryMemberRepository();
         // 이러면 db 가 바뀔 때마다 코드를 수정하는 게 아니라 그냥 코드를 새로 작성하고 이거만 수정하면 되니까
         // 유지보수가 좋아짐
-        return new JdbcMemberRepository(dataSource);
+//        return new MemoryMemberRepository();
+//        return new JdbcMemberRepository(dataSource);
+        return new JdbcTemplateMemberRepository(dataSource);
     }
 }

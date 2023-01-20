@@ -1,37 +1,34 @@
 package hello.hellospring.service;
 
 import hello.hellospring.domain.Member;
+import hello.hellospring.repository.MemberRepository;
 import hello.hellospring.repository.MemoryMemberRepository;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
-
-class MemberServiceTest {
+@SpringBootTest
+// @Transactional 을 써주면 db에 commit을 하지 않고 이전상태로 초기화 시킴 => @Aftereach 쓸 필요가 없어짐
+// TestCase 에만 붙임, 근데 테스트 돌리는 데 시간이 오래 걸림 => 스프링이 떠야되기 때문에
+// 순수한 단위테스트가 훨씬 좋은 테스트일 확률이 높음
+@Transactional
+class MemberServiceIntegrationTest {
 
     // 근데 memberRepository 는 다른 객체잖아 => 일단 static 이라 상관은 없긴해
     // 근데 다른 인스턴스일 수 있잖아 => 그럼 다른 객체니까
     // 이 repository 를 같은 걸로 일치 시켜야돼
     // beforeEach 에다가 memberRepository 를 memberService 를 넣어줘
     // 이러면 memberRepository 의 memberService 객체와 여기서 memberService 객체가 같아
-    MemoryMemberRepository memberRepository;
+    @Autowired
     MemberService memberService;
-
-    @BeforeEach
-    public void beforeEach() {
-        memberRepository = new MemoryMemberRepository();
-        memberService = new MemberService(memberRepository);
-    }
-
-    @AfterEach
-    public void afterEach() {
-        memberRepository.clearStore();
-    }
+    @Autowired
+    MemberRepository memberRepository;
 
     @Test
     void 회원가입() {
@@ -60,27 +57,9 @@ class MemberServiceTest {
         // when
         memberService.join(member1);
 
+        // then
         // try catch 문으로 짜기 불편하니까 assertThrows 로 대체
         IllegalStateException e = assertThrows(IllegalStateException.class, () -> memberService.join(member2));
         assertThat(e.getMessage()).isEqualTo("이미 존재하는 회원입니다.");
-//        try {
-//            // 여기서 exception 이 터짐
-//            memberService.join(member2);
-//            // 그럼 이 fail 코드는 실행되면 안됨
-//            fail();
-//        } catch (IllegalStateException e) {
-//            assertThat(e.getMessage()).isEqualTo("이미 존재하는 회원입니다.");
-//        }
-
-        // then
-    }
-
-
-    @Test
-    void findMembers() {
-    }
-
-    @Test
-    void findOne() {
     }
 }
