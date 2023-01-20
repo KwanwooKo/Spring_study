@@ -8,8 +8,8 @@ public class Member {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // db 의 username 과 이 name 코드를 서로 mapping 시킴
-    @Column(name = "username")
+    // db 의 name 과 이 name 코드를 서로 mapping 시킴
+    @Column(name = "name")
     private String name;
 
     public Long getId() {
