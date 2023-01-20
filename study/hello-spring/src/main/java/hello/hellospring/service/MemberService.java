@@ -23,6 +23,7 @@ public class MemberService {
      * 회원가입
      */
     public Long join(Member member) {
+
         // 같은 이름이 있는 중복 회원x
         // Optional 을 바로 반환하는 걸 권장하지 않음
         validateDuplicateMember(member);
