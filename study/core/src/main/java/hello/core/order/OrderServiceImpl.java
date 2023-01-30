@@ -11,7 +11,7 @@ public class OrderServiceImpl implements OrderService {
     // Impl 클래스에서는 이런게 있으면 안되지
     // 결론은 나는 Impl 클래스의 코드를 절대 수정하고 싶지 않아
     // 그래서 인터페이스 에만 의존하도록 코드를 바꾸면 됨
-    // 해결: discountPolicy 만 선언 => 이러면 Impl 은 interface 에만 의존
+    // 해결: discountPolicy 만 선언 => 이러면 Impl 은 interface 에만 의존 => AppConfig 에서 해당 interface 에 구현체 주입
     private final MemberRepository memberRepository;
     private final DiscountPolicy discountPolicy;
 
