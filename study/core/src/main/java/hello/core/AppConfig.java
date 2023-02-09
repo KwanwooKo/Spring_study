@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 // 이렇게 AppConfig 를 사용하면서 좋아지는 점 => 사용 영역의 코드를 아예 수정하지 않아도 작동한다, 구성 영역의 코드만 수정하면 됨
-@Configuration  // 설정정보
+@Configuration  // 설정정보, BeanDefinition 생성
 public class AppConfig {
 
     /*
