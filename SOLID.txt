@@ -1,0 +1,28 @@
+1. SRP(Single Responsibility Principle)
+단일 책임 원칙
+한 클래스는 하나의 책임만 가져야 한다
+
+2. OCP(Open-Closed Principle)
+개방-폐쇄 원칙
+확장에는 열려 있으나 변경에는 닫혀 있어야 한다 => interface 쓰는거랑 같다고 생각하면 편함
+그래서 구현체를 사용해서 interface 에 할당할 때 SpringConfig 만 바꿔주면 해결됐던거 생각하면 될듯
+근데 여기서 중요한 말이 SpringConfig 에서 바꿔주면 된다고 했는데(Dependency Injection)
+원래는 자체 클래스에서 바꿔야해 => 근데 이거 하면 Open-Closed 깨지잖아 
+그래서 SpringConfig 에서 바꿔주는거야
+
+3. LSP(Liskov substitution principle)
+리스코프 치환 법칙 
+컴파일 단계만 단순히 말하는 것이 아닌, 프로그램이 기능적으로 제대로 작동되는 것을 보장해야 한다
+예) 자동차에서 엑셀은 앞으로 가라는 기능인데 뒤로 가면 문제 있음
+
+4. ISP(Interface Segregation Principle)
+인터페이스 분리 원칙
+인터페이스를 최대한 분리하는 것이 좋다
+=> 자동차를 운전 인터페이스와 정비 인터페이스로 나눈다
+이렇게 하면 좋은점? 인터페이스가 명확해지고, 대체 가능성이 높아진다
+
+5. DIP(Dependency Inversion Principle)
+의존관계 역전 원칙
+클라이언트는 interface 에 대해서만 알아야지 구현체에 대해서 알 필요는 없음
+정확히는 알면 안된다고 보는게 맞음
+역할에 의존하게 해야지, 구현에 의존하면 안됨
