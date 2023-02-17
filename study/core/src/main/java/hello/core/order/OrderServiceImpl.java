@@ -3,11 +3,11 @@ package hello.core.order;
 import hello.core.discount.DiscountPolicy;
 import hello.core.member.Member;
 import hello.core.member.MemberRepository;
-import hello.core.member.MemoryMemberRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+//@RequiredArgsConstructor // 생성자를 만들어줌, final 이 붙은 멤버변수들을 다 생성자로 설정 => 생성자 코드도 사라짐
 public class OrderServiceImpl implements OrderService {
 
     // 근데 여기에 구현체에 의존하고 있는 코드가 있음 => DIP 위반,
@@ -18,7 +18,12 @@ public class OrderServiceImpl implements OrderService {
     private final MemberRepository memberRepository;
     private final DiscountPolicy discountPolicy;
 
-    @Autowired
+    // 생성자를 통해서만 의존관계가 주입됨 => 불변
+    // + 생성자를 쓰면 변수를 final 로 지정할 수 있다
+    // 그래서 set 이용해서 필드 injection 은 사용하면 안됨
+    // 유일하게 사용해도 되는 곳? => 테스트 코드
+    // 생성자가 딱 1개만 있으면 자동으로 @Autowired 가 생성된다
+    // Lombok을 이용하면 생성자 코드도 필요 없어짐
     public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;

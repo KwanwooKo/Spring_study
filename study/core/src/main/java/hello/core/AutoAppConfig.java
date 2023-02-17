@@ -1,7 +1,10 @@
 package hello.core;
 
+import hello.core.discount.DiscountPolicy;
 import hello.core.member.MemberRepository;
 import hello.core.member.MemoryMemberRepository;
+import hello.core.order.OrderService;
+import hello.core.order.OrderServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -18,6 +21,7 @@ public class AutoAppConfig {
     // basePackages 를 지정하지 않으면 이 클래스가 있는 패키지를 다 찾는다 => hello.core
     // 그래서 권장하는 방법은 설정 정보 클래스를 프로젝트 최상단에 두는 것.
 
+    // 이걸 하면 안되는 이유 => Component로 이미 등록이 되어있기 때문에
 //    @Bean(name = "memoryMemberRepository")
 //    MemberRepository memberRepository() {
 //        return new MemoryMemberRepository();
