@@ -1,9 +1,11 @@
 package hello.core.order;
 
+import hello.core.annotation.MainDiscountPolicy;
 import hello.core.discount.DiscountPolicy;
 import hello.core.member.Member;
 import hello.core.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -24,7 +26,9 @@ public class OrderServiceImpl implements OrderService {
     // 유일하게 사용해도 되는 곳? => 테스트 코드
     // 생성자가 딱 1개만 있으면 자동으로 @Autowired 가 생성된다
     // Lombok을 이용하면 생성자 코드도 필요 없어짐
-    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+    // 같은 interface 에 대해 bean 이 여러개 존재하면 Qualifier 를 이용해서 구분할 수 있다
+    // 정확히는 모든 클래스에 대해 적용이 가능하지만, 경험적으로 같은 interface 에서 찾는게 더 좋다
+    public OrderServiceImpl(MemberRepository memberRepository, /*@Qualifier("mainDiscountPolicy")*/ @MainDiscountPolicy DiscountPolicy discountPolicy) {
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;
     }
