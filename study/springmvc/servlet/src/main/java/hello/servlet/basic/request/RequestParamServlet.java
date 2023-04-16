@@ -14,6 +14,9 @@ import java.io.IOException;
  *
  * 2. 복수 파라미터 전송 기능
  * http://localhost:8080/request-param?username=hello&username=hello2&age=20
+ *
+ * 3. post vs get
+ * post 방식으로 보내도 데이터를 뽑아올 수 있다.
  */
 @WebServlet(name = "requestParamServlet", urlPatterns = "/request-param")
 public class RequestParamServlet extends HttpServlet {
