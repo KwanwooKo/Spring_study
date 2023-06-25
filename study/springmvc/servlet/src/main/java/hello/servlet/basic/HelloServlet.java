@@ -15,6 +15,7 @@ public class HelloServlet extends HttpServlet {
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         System.out.println("HelloServlet.service");
+        // request, response 객체는 계속 추가생성 <-> servlet 컨테이너를 하나만 이용, 여기서 servlet 컨테이너는 HelloServlet
         System.out.println("request = " + request);
         System.out.println("response = " + response);
 
@@ -22,6 +23,7 @@ public class HelloServlet extends HttpServlet {
         String username = request.getParameter("username");
         System.out.println("username = " + username);
 
+        // servlet이 애초에 logic 이외의 모든 것을 관리하니까
         response.setContentType("test/plain");
         response.setCharacterEncoding("utf-8");
         response.getWriter().write("hello " + username);

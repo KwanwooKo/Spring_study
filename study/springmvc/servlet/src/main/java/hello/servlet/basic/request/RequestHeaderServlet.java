@@ -66,7 +66,8 @@ public class RequestHeaderServlet extends HttpServlet {
         System.out.println("request.getLocale() = " + request.getLocale());
         System.out.println();
 
-        System.out.println("[cookie 편의 조회]"); if (request.getCookies() != null) {
+        System.out.println("[cookie 편의 조회]");
+        if (request.getCookies() != null) {
             for (Cookie cookie : request.getCookies()) {
                 System.out.println(cookie.getName() + ": " + cookie.getValue());
             }
@@ -84,7 +85,8 @@ public class RequestHeaderServlet extends HttpServlet {
         System.out.println();
     }
 
-    private void printEtc(HttpServletRequest request) { System.out.println("--- 기타 조회 start ---");
+    private void printEtc(HttpServletRequest request) {
+        System.out.println("--- 기타 조회 start ---");
         System.out.println("[Remote 정보]");
         System.out.println("request.getRemoteHost() = " + request.getRemoteHost()); //
         System.out.println("request.getRemoteAddr() = " + request.getRemoteAddr()); //
