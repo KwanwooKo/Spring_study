@@ -20,6 +20,8 @@ public class SpringMemberControllerV3 {
 //    @RequestMapping(value = "/new-form", method = RequestMethod.GET)
     @GetMapping("/new-form")
     public String newForm() {
+        // 논리 주소를 반환하면, viewResolver가 이걸 처리해
+        // viewResolver에서 /WEB-INF/views/new-form.jsp 를 찾아서 이걸 호출
         return "new-form";
     }
 
