@@ -17,13 +17,12 @@ public class JpaMain {
         try {
 
             // 영속
-            Member member = em.find(Member.class, 150L);
-            member.setName("ZZZZZ");
+            Member member = new Member(200L, "member200");
+            em.persist(member);
 
-//            em.persist(member); => 이건 쓰면 안돼(객체처럼 다루기 위해 쓰기 때문에 그냥 call by reference 랑 같다고 생각)
+            em.flush();
 
-            System.out.println("=================================");
-
+            System.out.println("=======================");
             trx.commit();
         } catch (Exception e) {
             trx.rollback();
