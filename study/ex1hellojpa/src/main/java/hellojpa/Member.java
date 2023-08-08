@@ -7,30 +7,16 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity     // JPA가 관리하는 객체
+@SequenceGenerator(name = "member_seq_generator", sequenceName = "member_seq")
 public class Member {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "member_seq_generator") // 기본 키 생성을 db에 위임
     private Long id;
 
     @Column(name = "name", nullable = false)  // 객체는 username, db에는 name column으로
     private String username;
 
-    private int age;
-
-    @Enumerated(EnumType.STRING)
-    private RoleType roleType;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdDate;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date lastModifiedDate;
-
-    @Lob
-    private String description;
-
-    @Transient      // memory 에서만 쓰기 위한 annotation
-    private int temp;
     public Member() {
     }
 
@@ -48,53 +34,5 @@ public class Member {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public RoleType getRoleType() {
-        return roleType;
-    }
-
-    public void setRoleType(RoleType roleType) {
-        this.roleType = roleType;
-    }
-
-    public Date getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public Date getLastModifiedDate() {
-        return lastModifiedDate;
-    }
-
-    public void setLastModifiedDate(Date lastModifiedDate) {
-        this.lastModifiedDate = lastModifiedDate;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public int getTemp() {
-        return temp;
-    }
-
-    public void setTemp(int temp) {
-        this.temp = temp;
     }
 }
