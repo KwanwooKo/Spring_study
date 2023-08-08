@@ -15,33 +15,14 @@ public class JpaMain {
         trx.begin();
 
         try {
-              // database에 객체 추가
-//            Member member = new Member();
-//            member.setId(2L);
-//            member.setName("HelloB");
-//            em.persist(member);
 
-            // database에서 객체 조회 => primary key로 조회
-//            Member member = em.find(Member.class, 1L);
-//            member.setName("HelloJPA"); // em.persist(member) 없이 변경 사항이 적용됨
+            // 영속
+            Member member = em.find(Member.class, 150L);
+            member.setName("ZZZZZ");
 
-//            List<Member> result = em.createQuery("select m from Member as m", Member.class)
-//                    .setFirstResult(5)
-//                    .setMaxResults(8)
-//                    .getResultList();
-//
-//            for (Member member : result) {
-//                System.out.println("member.getName() = " + member.getName());
-//            }
+//            em.persist(member); => 이건 쓰면 안돼(객체처럼 다루기 위해 쓰기 때문에 그냥 call by reference 랑 같다고 생각)
 
-
-            Member findMember1 = em.find(Member.class, 101L);
-            // 2번째는 query가 나가면 안돼
-            Member findMember2 = em.find(Member.class, 101L);
-
-            System.out.println("result = " + (findMember1 == findMember2));     // true
-
-
+            System.out.println("=================================");
 
             trx.commit();
         } catch (Exception e) {
