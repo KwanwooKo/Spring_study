@@ -12,8 +12,18 @@ public class Member {
     @Column(name = "USERNAME")
     private String username;
 
-    @Column(name = "TEAM_ID")
-    private Long teamId;
+//    @Column(name = "TEAM_ID")
+//    private Long teamId;
+
+    // 누가 1이고 누가 n인지 정확하게
+    // 여기서는 Member == n / Team == 1
+    // 이 클래스 입장에서 몇 대 몇인지 고려
+    // 그래서 Member 객체가 Team 객체에 어떤 관계가 있는지 알려줘야 해
+    // TEAM_ID가 그 역할
+    // Team 객체와 team_id column을 mapping
+    @ManyToOne
+    @JoinColumn(name = "TEAM_ID")
+    private Team team;
 
     public Long getId() {
         return id;
@@ -31,11 +41,11 @@ public class Member {
         this.username = username;
     }
 
-    public Long getTeamId() {
-        return teamId;
+    public Team getTeam() {
+        return team;
     }
 
-    public void setTeamId(Long teamId) {
-        this.teamId = teamId;
+    public void setTeam(Team team) {
+        this.team = team;
     }
 }
