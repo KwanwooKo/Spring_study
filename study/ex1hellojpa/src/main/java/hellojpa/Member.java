@@ -23,7 +23,7 @@ public class Member extends BaseEntity {
     // 그래서 Member 객체가 Team 객체에 어떤 관계가 있는지 알려줘야 해
     // TEAM_ID가 그 역할
     // Team 객체와 team_id column을 mapping
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "TEAM_ID")
     private Team team;
 
