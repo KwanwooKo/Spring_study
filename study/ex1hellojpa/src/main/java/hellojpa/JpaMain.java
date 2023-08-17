@@ -25,8 +25,8 @@ public class JpaMain {
             member.getFavoriteFoods().add("족발");
             member.getFavoriteFoods().add("피자");
 
-            member.getAddressHistory().add(new Address("old1", "street", "10000"));
-            member.getAddressHistory().add(new Address("old2", "street", "10000"));
+            member.getAddressHistory().add(new AddressEntity("old1", "street", "10000"));
+            member.getAddressHistory().add(new AddressEntity("old2", "street", "10000"));
 
             em.persist(member);
 
@@ -37,15 +37,18 @@ public class JpaMain {
             System.out.println("====================== START ======================");
             Member findMember = em.find(Member.class, member.getId());
 
-            List<Address> addressHistory = findMember.getAddressHistory();
-            for (Address address : addressHistory) {
-                System.out.println("address.getCity() = " + address.getCity());
-            }
+            // homeCity -> newCity
+//            findMember.getHomeAddress().setCity("newCity");       // 절대 이렇게 쓰면 안돼
+//            Address a = findMember.getHomeAddress();
+//            findMember.setHomeAddress(new Address("newCity", a.getStreet(), a.getZipcode()));
 
-            Set<String> favoriteFoods = findMember.getFavoriteFoods();
-            for (String favoriteFood : favoriteFoods) {
-                System.out.println("favoriteFood = " + favoriteFood);
-            }
+            // 치킨 -> 한식
+//            findMember.getFavoriteFoods().remove("치킨");     // Collection의 값만 변경되어도 db에서 실제값이 같이 변경돼
+//            findMember.getFavoriteFoods().add("한식");
+
+            // equals, hashCode 로 삭제해
+//            findMember.getAddressHistory().remove(new AddressEntity("old1", "street", "10000"));
+//            findMember.getAddressHistory().add(new AddressEntity("newCity1", "street", "10000"));
 
             trx.commit();
         } catch (Exception e) {
