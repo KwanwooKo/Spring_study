@@ -3,12 +3,15 @@ package hellojpa;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity     // JPA가 관리하는 객체
 public class Member {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "MEMBER_ID")
     private Long id;
 
@@ -16,25 +19,23 @@ public class Member {
     private String username;
 
     // 기간 Period
-    @Embedded
-    private Period wordPeriod;
+//    @Embedded
+//    private Period wordPeriod;
 
     // 주소 Address
     @Embedded
     private Address homeAddress;
 
-    // 하나의 Entity에서 중복된 column을 사용하는 경우
-    // 이렇게 사용하면 됨
-    @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name = "city",
-                    column = @Column(name = "WORK_CITY")),
-            @AttributeOverride(name = "street",
-                    column = @Column(name = "WORK_STREET")),
-            @AttributeOverride(name = "zipcode",
-                    column = @Column(name = "WORK_ZIPCODE"))
-    })
-    private Address workAddress;
+    @ElementCollection
+    @CollectionTable(name = "FAVORITE_FOOD",
+            joinColumns = @JoinColumn(name = "MEMBER_ID"))
+    @Column(name = "FOOD_NAME") // String의 경우에만 예외적으로 되는 거
+    private Set<String> favoriteFoods = new HashSet<>();
+
+    @ElementCollection
+    @CollectionTable(name = "ADDRESS",
+            joinColumns = @JoinColumn(name = "MEMBER_ID"))
+    private List<Address> addressHistory = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -52,12 +53,20 @@ public class Member {
         this.username = username;
     }
 
-    public Period getWordPeriod() {
-        return wordPeriod;
+    public Set<String> getFavoriteFoods() {
+        return favoriteFoods;
     }
 
-    public void setWordPeriod(Period wordPeriod) {
-        this.wordPeriod = wordPeriod;
+    public void setFavoriteFoods(Set<String> favoriteFoods) {
+        this.favoriteFoods = favoriteFoods;
+    }
+
+    public List<Address> getAddressHistory() {
+        return addressHistory;
+    }
+
+    public void setAddressHistory(List<Address> addressHistory) {
+        this.addressHistory = addressHistory;
     }
 
     public Address getHomeAddress() {
