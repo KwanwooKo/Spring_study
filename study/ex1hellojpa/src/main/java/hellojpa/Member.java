@@ -1,11 +1,12 @@
 package hellojpa;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity     // JPA가 관리하는 객체
-public class Member extends BaseEntity {
+public class Member {
 
     @Id @GeneratedValue
     @Column(name = "MEMBER_ID")
@@ -14,25 +15,26 @@ public class Member extends BaseEntity {
     @Column(name = "USERNAME")
     private String username;
 
-//    @Column(name = "TEAM_ID")
-//    private Long teamId;
+    // 기간 Period
+    @Embedded
+    private Period wordPeriod;
 
-    // 누가 1이고 누가 n인지 정확하게
-    // 여기서는 Member == n / Team == 1
-    // 이 클래스 입장에서 몇 대 몇인지 고려
-    // 그래서 Member 객체가 Team 객체에 어떤 관계가 있는지 알려줘야 해
-    // TEAM_ID가 그 역할
-    // Team 객체와 team_id column을 mapping
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "TEAM_ID")
-    private Team team;
+    // 주소 Address
+    @Embedded
+    private Address homeAddress;
 
-    @OneToOne
-    @JoinColumn(name = "LOCKER_ID")
-    private Locker locker;
-
-    @OneToMany(mappedBy = "member")
-    private List<MemberProduct> memberProducts = new ArrayList<>();
+    // 하나의 Entity에서 중복된 column을 사용하는 경우
+    // 이렇게 사용하면 됨
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "city",
+                    column = @Column(name = "WORK_CITY")),
+            @AttributeOverride(name = "street",
+                    column = @Column(name = "WORK_STREET")),
+            @AttributeOverride(name = "zipcode",
+                    column = @Column(name = "WORK_ZIPCODE"))
+    })
+    private Address workAddress;
 
     public Long getId() {
         return id;
@@ -50,12 +52,19 @@ public class Member extends BaseEntity {
         this.username = username;
     }
 
-    public Team getTeam() {
-        return team;
+    public Period getWordPeriod() {
+        return wordPeriod;
     }
 
-    public void setTeam(Team team) {
-        this.team = team;
+    public void setWordPeriod(Period wordPeriod) {
+        this.wordPeriod = wordPeriod;
     }
 
+    public Address getHomeAddress() {
+        return homeAddress;
+    }
+
+    public void setHomeAddress(Address homeAddress) {
+        this.homeAddress = homeAddress;
+    }
 }

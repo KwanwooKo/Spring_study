@@ -15,24 +15,12 @@ public class JpaMain {
 
         try {
 
-            Parent parent = new Parent();
+            Member member = new Member();
+            member.setUsername("hello");
+            member.setHomeAddress(new Address("city", "street", "100000"));
+            member.setWordPeriod(new Period());
 
-            Child child1 = new Child();
-            Child child2 = new Child();
-
-            parent.addChild(child1);
-            parent.addChild(child2);
-
-            em.persist(parent);
-//            em.persist(child1);
-//            em.persist(child2);
-
-            em.flush();
-            em.clear();
-
-            Parent findParent = em.find(Parent.class, parent.getId());
-            findParent.getChildList().remove(0);
-
+            em.persist(member);
 
             trx.commit();
         } catch (Exception e) {
