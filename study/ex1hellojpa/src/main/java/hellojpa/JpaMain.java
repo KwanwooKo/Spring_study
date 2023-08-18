@@ -37,6 +37,16 @@ public class JpaMain {
             System.out.println("====================== START ======================");
             Member findMember = em.find(Member.class, member.getId());
 
+            /**
+             * 값 타입 Collection은 언제 써?
+             * 값을 더이상 추적할 필요가 없는 데이터의 경우
+             * 그러면 주소는 뭘 써야될까?
+             * -> 무조건 Entity
+             *
+             * 값 타입은 값 타입이라 판단될 때만 사용해야돼
+             */
+
+
             // homeCity -> newCity
 //            findMember.getHomeAddress().setCity("newCity");       // 절대 이렇게 쓰면 안돼
 //            Address a = findMember.getHomeAddress();
